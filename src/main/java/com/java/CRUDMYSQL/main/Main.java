@@ -23,13 +23,14 @@ public class Main {
 		
 		
 		
-		contato1.setId(6);
-		contato1.setIdade(51);
-		contato1.setNome("Joao update");
-		contato1.setDataCadastro(new Date());
+//		contato1.setId(6);
+//		contato1.setIdade(51);
+//		contato1.setNome("Joao update");
+//		contato1.setDataCadastro(new Date());
+//		
+//		contatosDao.atualizar(contato1);
 		
-		contatosDao.atualizar(contato1);
-		
+		contatosDao.deletar(8);
 		
 		List<Contatos> conts = new ArrayList<Contatos>();
 		conts = contatosDao.consultar();

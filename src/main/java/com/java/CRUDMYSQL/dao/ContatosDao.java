@@ -121,6 +121,40 @@ public class ContatosDao {
 		}
 
 	}
+	
+	public void deletar(int id) {
+		String sql = "DELETE FROM contatos WHERE id = ?";
+		
+		try {
+			PreparedStatement prepareSql = (PreparedStatement) connection.prepareStatement(sql);
+			
+			prepareSql.setInt(1, id);
+
+			prepareSql.execute();
+			connection.commit();
+			
+			System.out.println("Excluido com sucesso");
+
+		} catch (Exception e) {
+			try {
+				connection.rollback(); // reverte a operação
+			} catch (SQLException e1) {
+
+				e1.printStackTrace();
+			} finally {
+				try {
+					connection.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+
+				}
+
+			}
+		}
+		
+		
+	}
 
 }
 
