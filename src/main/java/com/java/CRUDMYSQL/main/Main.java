@@ -21,6 +21,16 @@ public class Main {
 //		contatosDao.Salvar(contato1);
 		
 		
+		
+		
+		contato1.setId(6);
+		contato1.setIdade(51);
+		contato1.setNome("Joao update");
+		contato1.setDataCadastro(new Date());
+		
+		contatosDao.atualizar(contato1);
+		
+		
 		List<Contatos> conts = new ArrayList<Contatos>();
 		conts = contatosDao.consultar();
 		

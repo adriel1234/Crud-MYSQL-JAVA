@@ -89,6 +89,39 @@ public class ContatosDao {
 		return contatos;
 	}
 	
+	public void atualizar(Contatos contato) {
+		String sql = "UPDATE contatos SET nome=?, idade=?, dataCadastro=? where id = ?";
+
+		try {
+			PreparedStatement prepareSql = (PreparedStatement) connection.prepareStatement(sql);
+			prepareSql.setString(1, contato.getNome());
+			prepareSql.setInt(2, contato.getIdade());
+			prepareSql.setDate(3, new java.sql.Date(contato.getDataCadastro().getTime()));
+			prepareSql.setInt(4, contato.getId());
+
+			prepareSql.execute();
+			connection.commit();
+
+		} catch (Exception e) {
+			try {
+				connection.rollback(); // reverte a operação
+			} catch (SQLException e1) {
+
+				e1.printStackTrace();
+			} finally {
+				try {
+					connection.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+
+				}
+
+			}
+		}
+
+	}
+
 }
 
 			
