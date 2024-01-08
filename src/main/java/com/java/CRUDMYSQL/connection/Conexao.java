@@ -4,22 +4,32 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Conexao {
-	private static final Connection connection = construirConexao();
+	private static Connection connection = null;
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/CRUD_MYSQL?useSSL=false";
 	
+	static {
+		construirConexao();
+	}
 	
-	private static Connection construirConexao() {
+	public Conexao() {
+		construirConexao();
+	}
+	
+	private static void construirConexao() {
+		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+			if(connection == null) {
+				Class.forName("com.mysql.jdbc.Driver");
+				connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+				connection.setAutoCommit(false);
+			}
 		}catch (Exception e) {
 			System.err.println("Conexao falhou "+e.getMessage());
 			
 		}
 		
-		return null;
 		
 	}
 	
