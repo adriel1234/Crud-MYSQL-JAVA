@@ -1,8 +1,9 @@
 package com.java.CRUDMYSQL.main;
 
 
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 import com.java.CRUDMYSQL.dao.ContatosDao;
 import com.java.CRUDMYSQL.model.Contatos;
@@ -13,11 +14,23 @@ public class Main {
 		Contatos contato1= new Contatos();
 		ContatosDao contatosDao = new ContatosDao();
 		
-		contato1.setId(18);
-		contato1.setNome("Joao");
-		contato1.setDataCadastro(new Date());
+//		contato1.setIdade(18);
+//		contato1.setNome("Joao teste");
+//		contato1.setDataCadastro(new Date());
+//		
+//		contatosDao.Salvar(contato1);
 		
-		contatosDao.Salvar(contato1);
+		
+		List<Contatos> conts = new ArrayList<Contatos>();
+		conts = contatosDao.consultar();
+		
+		for (Contatos contato : conts) {
+			System.out.println("\nId: "+contato.getId());
+			System.out.println("Nome: "+contato.getNome());
+			System.out.println("Idade: "+contato.getIdade());
+			System.out.println("Data de Cadastro: "+contato.getDataCadastro());
+			
+		}
 		
 
 	}

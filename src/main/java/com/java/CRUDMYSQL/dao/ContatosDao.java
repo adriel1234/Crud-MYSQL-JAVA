@@ -1,7 +1,10 @@
 package com.java.CRUDMYSQL.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.java.CRUDMYSQL.connection.Conexao;
 import com.java.CRUDMYSQL.model.Contatos;
@@ -47,5 +50,46 @@ public class ContatosDao {
 		}
 		
 	}
+	
+	public List<Contatos> consultar(){
+		String sql = "SELECT * FROM contatos";
+		List<Contatos> contatos = new ArrayList<Contatos>();
 
+		try {
+			
+			PreparedStatement preparedSql= (PreparedStatement) connection.prepareStatement(sql);
+			ResultSet rset = preparedSql.executeQuery();
+			
+			while(rset.next()) {
+				Contatos contato = new Contatos();
+				contato.setId(rset.getInt("id"));
+				contato.setNome(rset.getString("nome"));
+				contato.setDataCadastro(rset.getDate("dataCadastro"));
+				contato.setIdade(rset.getInt("idade"));
+				
+				contatos.add(contato);
+			}				
+		}catch (Exception e) {
+			try {
+				connection.rollback(); //reverte a operação
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}finally {
+				try {
+					connection.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+			
+				}
+				
+			}
+		}
+		return contatos;
+	}
+	
 }
+
+			
+			
